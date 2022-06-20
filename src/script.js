@@ -8,8 +8,6 @@ import testFragmentShader from './shaders/test/fragment.glsl'
 /**
  * Base
  */
-// Debug
-const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -39,12 +37,23 @@ const material = new THREE.ShaderMaterial({
         uColor: { type: 'vec3', value: new THREE.Color(0x160dd1) },
         uColor1: { type: 'vec3', value: new THREE.Color(0xFFFFFF) },
         
-        //uTexture: { value: metallicTexture }
+        uFrequency: {type: 'float', value: 1.0 },
+        uAmplitude: {type: 'float', value: 0.5 },
+        uOktaven: { type: 'int', value: 1},
+        uPersistence: {type: 'float', value: 0.5},
+        uLucarnicity: {type: 'float', value: 0.5},
 
     },
     transparent: true,
 })
 
+// Debug
+const gui = new dat.GUI()
+gui.add(material.uniforms.uFrequency,  'value').min(0).max(10).step(0.001).name('Frequency')
+gui.add(material.uniforms.uAmplitude,  'value').min(0).max(3).step(0.001).name('Amplitude')
+gui.add(material.uniforms.uOktaven,  'value').min(0).max(10).step(1).name('Oktaven')
+gui.add(material.uniforms.uPersistence,  'value').min(0).max(1).step(0.001).name('Persistenz')
+gui.add(material.uniforms.uLucarnicity,  'value').min(0).max(10).step(0.001).name('Persistenz')
 
 // Mesh
 const sphere = new THREE.Mesh(geometry, material)
