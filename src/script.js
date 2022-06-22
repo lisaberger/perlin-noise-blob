@@ -16,13 +16,7 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /**
- * Textures
- */
-const textureLoader = new THREE.TextureLoader()
-const metallicTexture = textureLoader.load('textures/metallic.jpg')
-
-/**
- * Test mesh
+ * Mesh
  */
 // Geometry
 const geometry = new THREE.SphereGeometry(1, 128, 128)
@@ -38,10 +32,10 @@ const material = new THREE.ShaderMaterial({
         uColor1: { type: 'vec3', value: new THREE.Color(0xFFFFFF) },
         
         uFrequency: {type: 'float', value: 1.0 },
-        uAmplitude: {type: 'float', value: 0.5 },
+        uAmplitude: {type: 'float', value: 1.0 },
         uOktaven: { type: 'int', value: 1},
-        uPersistence: {type: 'float', value: 0.5},
-        uLucarnicity: {type: 'float', value: 0.5},
+        uGain: {type: 'float', value: 0.5},
+        uLucarnicity: {type: 'float', value: 2.0},
 
     },
     transparent: true,
@@ -49,28 +43,20 @@ const material = new THREE.ShaderMaterial({
 
 // Debug
 const gui = new dat.GUI()
-gui.add(material.uniforms.uFrequency,  'value').min(0).max(10).step(0.001).name('Frequency')
-gui.add(material.uniforms.uAmplitude,  'value').min(0).max(3).step(0.001).name('Amplitude')
-gui.add(material.uniforms.uOktaven,  'value').min(0).max(10).step(1).name('Oktaven')
-gui.add(material.uniforms.uPersistence,  'value').min(0).max(1).step(0.001).name('Persistenz')
-gui.add(material.uniforms.uLucarnicity,  'value').min(0).max(10).step(0.001).name('Persistenz')
+gui.add(material.uniforms.uFrequency,  'value').min(1).max(10).step(0.001).name('Frequency')
+gui.add(material.uniforms.uAmplitude,  'value').min(-2).max(2).step(0.001).name('Amplitude')
+gui.add(material.uniforms.uOktaven,  'value').min(1).max(10).step(1).name('Oktaven')
+gui.add(material.uniforms.uGain,  'value').min(0).max(1).step(0.001).name('Gain')
+gui.add(material.uniforms.uLucarnicity,  'value').min(0).max(10).step(0.001).name('Lucarnicity')
+gui.addColor(material.uniforms.uColor, 'value').name('Dunkle Farbe')
+gui.addColor(material.uniforms.uColor1, 'value').name('Helle Farbe')
+
 
 // Mesh
 const sphere = new THREE.Mesh(geometry, material)
 scene.add(sphere)
 
 console.log(sphere.geometry)
-/**
- * Lights
- */
-
-//  const directionalLight = new THREE.DirectionalLight('#ffffff',1.0)
-//  directionalLight.position.set(0, 3, 0);
-//  scene.add(directionalLight)
-
-//  const spotLight = new THREE.SpotLight('#ffffff', 1.0, 5)
-//  scene.add(spotLight)
- 
 
 /**
  * Sizes

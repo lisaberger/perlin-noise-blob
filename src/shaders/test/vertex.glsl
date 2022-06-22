@@ -2,7 +2,7 @@
     uniform float uFrequency;
     uniform float uAmplitude;
     uniform int uOktaven;
-    uniform float uPersistence;
+    uniform float uGain;
     uniform float uLucarnicity;
     
     varying vec2 vUv;
@@ -90,7 +90,7 @@ void main() {
 
     float amplitude = uAmplitude;
     float frequency = uFrequency;
-    float persistence = uPersistence;
+    float gain = uGain;
     int oktaven = uOktaven;
     float displacement = 0.0;
     float lacunarity = uLucarnicity;
@@ -100,7 +100,7 @@ void main() {
     for (int i = 1; i <= oktaven; i++) {
         displacement += amplitude * cnoise(frequency * position + uTime * 0.3);
         frequency *= lacunarity;
-        amplitude *= persistence;
+        amplitude *= gain;
 
     };
     vec3 newPosition = position + normal * displacement;

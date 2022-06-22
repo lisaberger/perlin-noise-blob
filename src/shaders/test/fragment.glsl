@@ -4,15 +4,8 @@ uniform vec3 uColor1;
 
 varying float vdisplacement;
 
-// Type for textures
-// uniform sampler2D uTexture;
-
-varying vec2 vUv;
-varying vec3 vposition;
-
     void main() {
 
-      //vec4 textureColor = texture2D(uTexture, vUv);
       float mixStrength = (vdisplacement + 0.25) * 1.0;
       vec3 color = mix(uColor, uColor1, mixStrength);
 
